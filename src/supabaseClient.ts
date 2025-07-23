@@ -1,6 +1,13 @@
-// src/supabaseClient.js
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://djhccukliiunqtyibfng.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqaGNjdWtsaWl1bnF0eWliZm5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyNTE5OTAsImV4cCI6MjA2ODgyNzk5MH0.P-dnijKO3tir7VkAGj9qe2r02evwaA2SXrqhlX4JaLE'
-export const supabase = createClient(supabaseUrl, supabaseKey)
+// IMPORTANT: These are accessed via Netlify Environment Variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Add a check to ensure variables are defined (good practice)
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Supabase URL or Anon Key are not defined in environment variables!');
+  // You might want to throw an error or handle this more gracefully in a real app
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
